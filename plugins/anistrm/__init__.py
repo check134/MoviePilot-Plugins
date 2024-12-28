@@ -307,7 +307,7 @@ class ANiStrm(_PluginBase):
                                         'component': 'VSwitch',
                                         'props': {
                                             'model': 'fulladd',
-                                            'label': '下次创建当前季度所有番剧strm',
+                                            'label': '下载当前季度番剧',
                                         }
                                     }
                                 ]
@@ -328,7 +328,7 @@ class ANiStrm(_PluginBase):
                                         'component': 'VSwitch',
                                         'props': {
                                             'model': 'download_all',
-                                            'label': '下载所有番剧',
+                                            'label': '下载往年番剧',
                                         }
                                     }
                                 ]
