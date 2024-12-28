@@ -184,7 +184,7 @@ class ANiStrm(_PluginBase):
         return all_seasons
 
     @retry(Exception, tries=3, logger=logger, ret=[])
-    def download_all_anime(self):
+    def get_all_anime_list(self):
         all_seasons = self.__get_all_seasons()
         all_anime_list = []
         for season in all_seasons:
