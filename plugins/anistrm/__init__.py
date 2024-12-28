@@ -170,36 +170,35 @@ class ANiStrm(_PluginBase):
             ret_array.append(rss_info)
         return ret_array  
 
-    @retry(Exception, tries=3, logger=logger, ret=[])
-    def get_all_seasons(self) -> List[str]:
-        # 从2019年开始到当前年份
+    def __get_all_seasons(self) -> List[str]:
         start_year = 2019
         current_year = datetime.now().year
         all_seasons = []
 
         for year in range(start_year, current_year + 1):
-            # 四个季度的月份：1月、4月、7月、10月
             seasons_months = [1, 4, 7, 10]
             for month in seasons_months:
-                # 构造日期字符串，格式为 'YYYY-M'
                 season = f'{year}-{month}'
                 all_seasons.append(season)
         
         return all_seasons
 
+    @retry(Exception, tries=3, logger=logger, ret=[])
     def download_all_anime(self):
-        all_seasons = self.get_all_seasons()
+        all_seasons = self.__get_all_seasons()
+        all_anime_list = []
         for season in all_seasons:
             self._date = season
-            # 假设 get_current_season_list 方法可以根据 self._date 获取特定季度的所有动画片文件名
-            name_list = self.get_current_season_list()
-            logger.info(f'正在处理 {self._date} 季度，共 {len(name_list)} 个文件')
-            for file_name in name_list:
-                # 假设 __touch_strm_file 方法会根据 file_name 和 self._date 创建 strm 文件
-                if self.__touch_strm_file(file_name=file_name):
-                    logger.info(f'成功创建 {file_name}.strm 文件')
-                else:
-                    logger.info(f'{file_name}.strm 文件创建失败或已存在')
+            url = f'https://openani.an-i.workers.dev/{self._date}/'
+            rep = RequestUtils(ua=settings.USER_AGENT if settings.USER_AGENT else None,
+                            proxies=settings.PROXY if settings.PROXY else None).post(url=url)
+            logger.debug(rep.text)
+            files_json = rep.json()['files']
+            # 直接将所有季度的动画片文件名添加到列表中
+            all_anime_list.extend([file['name'] for file in files_json])
+            logger.info(f'正在处理 {self._date} 季度，共 {len(files_json)} 个文件')
+        
+        return all_anime_list  # 返回所有季度的动画片列表
 
     def __touch_strm_file(self, file_name, file_url: str = None) -> bool:
         if not file_url:
