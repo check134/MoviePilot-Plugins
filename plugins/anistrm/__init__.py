@@ -244,201 +244,202 @@ class ANiStrm(_PluginBase):
                     cnt += 1
         logger.info(f'新创建了 {cnt} 个strm文件')
 
-def get_state(self) -> bool:
-    return self._enabled
+    def get_state(self) -> bool:
+        return self._enabled
 
-@staticmethod
-def get_command() -> List[Dict[str, Any]]:
-    pass
+    @staticmethod
+    def get_command() -> List[Dict[str, Any]]:
+        pass
 
-def get_api(self) -> List[Dict[str, Any]]:
-    pass
+    def get_api(self) -> List[Dict[str, Any]]:
+        pass
 
-def get_form(self) -> Tuple[List[dict], Dict[str, Any]]:
-    """
-    拼装插件配置页面，需要返回两块数据：1、页面配置；2、数据结构
-    """
-    return [
-        {
-            'component': 'VForm',
-            'content': [
-                {
-                    'component': 'VRow',
-                    'content': [
-                        {
-                            'component': 'VCol',
-                            'props': {
-                                'cols': 12,
-                                'md': 4
-                            },
-                            'content': [
-                                {
-                                    'component': 'VSwitch',
-                                    'props': {
-                                        'model': 'enabled',
-                                        'label': '启用插件',
-                                    }
-                                }
-                            ]
-                        },
-                        {
-                            'component': 'VCol',
-                            'props': {
-                                'cols': 12,
-                                'md': 4
-                            },
-                            'content': [
-                                {
-                                    'component': 'VSwitch',
-                                    'props': {
-                                        'model': 'onlyonce',
-                                        'label': '立即运行一次',
-                                    }
-                                }
-                            ]
-                        },
-                        {
-                            'component': 'VCol',
-                            'props': {
-                                'cols': 12,
-                                'md': 4
-                            },
-                            'content': [
-                                {
-                                    'component': 'VSwitch',
-                                    'props': {
-                                        'model': 'fulladd',
-                                        'label': '下次创建当前季度所有番剧strm',
-                                    }
-                                }
-                            ]
-                        },
-                        {
-                            'component': 'VCol',
-                            'props': {
-                                'cols': 12,
-                                'md': 4
-                            },
-                            'content': [
-                                {
-                                    'component': 'VSwitch',
-                                    'props': {
-                                        'model': 'download_all',
-                                        'label': '下载所有季度番剧strm',
-                                    }
-                            }
-                        }
-                    ]
-                },
-                {
-                    'component': 'VRow',
-                    'content': [
-                        {
-                            'component': 'VCol',
-                            'props': {
-                                'cols': 12,
-                                'md': 4
-                            },
-                            'content': [
-                                {
-                                    'component': 'VTextField',
-                                    'props': {
-                                        'model': 'cron',
-                                        'label': '执行周期',
-                                        'placeholder': '0 0 ? ? ?'
-                                    }
-                                }
-                            ]
-                        },
-                        {
-                            'component': 'VCol',
-                            'props': {
-                                'cols': 12,
-                                'md': 4
-                            },
-                            'content': [
-                                {
-                                    'component': 'VTextField',
-                                    'props': {
-                                        'model': 'storageplace',
-                                        'label': 'Strm存储地址',
-                                        'placeholder': '/downloads/strm'
-                                    }
-                                }
-                            ]
-                        }
-                    ]
-                },
-                {
-                    'component': 'VRow',
-                    'content': [
-                        {
-                            'component': 'VCol',
-                            'props': {
-                                'cols': 12,
-                            },
-                            'content': [
-                                {
-                                    'component': 'VAlert',
-                                    'props': {
-                                        'type': 'info',
-                                        'variant': 'tonal',
-                                        'text': '自动从open ANi抓取下载直链生成strm文件，免去人工订阅下载' + '\n' +
-                                                '配合目录监控使用，strm文件创建在/downloads/strm' + '\n' +
-                                                '通过目录监控转移到link媒体库文件夹 如/downloads/link/strm  mp会完成刮削',
-                                        'style': 'white-space: pre-line;'
-                                    }
+    def get_form(self) -> Tuple[List[dict], Dict[str, Any]]:
+        """
+        拼装插件配置页面，需要返回两块数据：1、页面配置；2、数据结构
+        """
+        return [
+            {
+                'component': 'VForm',
+                'content': [
+                    {
+                        'component': 'VRow',
+                        'content': [
+                            {
+                                'component': 'VCol',
+                                'props': {
+                                    'cols': 12,
+                                    'md': 4
                                 },
-                                {
-                                    'component': 'VAlert',
-                                    'props': {
-                                        'type': 'info',
-                                        'variant': 'tonal',
-                                        'text': 'emby容器需要设置代理，docker的环境变量必须要有http_proxy代理变量，大小写敏感，具体见readme.' + '\n' +
-                                                'https://github.com/honue/MoviePilot-Plugins',
-                                        'style': 'white-space: pre-line;'
+                                'content': [
+                                    {
+                                        'component': 'VSwitch',
+                                        'props': {
+                                            'model': 'enabled',
+                                            'label': '启用插件',
+                                        }
                                     }
-                                }
-                            ]
-                        }
-                    ]
-                }
-            ]
+                                ]
+                            },
+                            {
+                                'component': 'VCol',
+                                'props': {
+                                    'cols': 12,
+                                    'md': 4
+                                },
+                                'content': [
+                                    {
+                                        'component': 'VSwitch',
+                                        'props': {
+                                            'model': 'onlyonce',
+                                            'label': '立即运行一次',
+                                        }
+                                    }
+                                ]
+                            },
+                            {
+                                'component': 'VCol',
+                                'props': {
+                                    'cols': 12,
+                                    'md': 4
+                                },
+                                'content': [
+                                    {
+                                        'component': 'VSwitch',
+                                        'props': {
+                                            'model': 'fulladd',
+                                            'label': '下载当前季度番剧',
+                                        }
+                                    }
+                                ]
+                            },
+                            {
+                                'component': 'VCol',
+                                'props': {
+                                    'cols': 12,
+                                    'md': 4
+                                },
+                                'content': [
+                                    {
+                                        'component': 'VSwitch',
+                                        'props': {
+                                            'model': 'download_all',
+                                            'label': '下载所有番剧',
+                                        }
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        'component': 'VRow',
+                        'content': [
+                            {
+                                'component': 'VCol',
+                                'props': {
+                                    'cols': 12,
+                                    'md': 4
+                                },
+                                'content': [
+                                    {
+                                        'component': 'VTextField',
+                                        'props': {
+                                            'model': 'cron',
+                                            'label': '执行周期',
+                                            'placeholder': '0 0 ? ? ?'
+                                        }
+                                    }
+                                ]
+                            },
+                            {
+                                'component': 'VCol',
+                                'props': {
+                                    'cols': 12,
+                                    'md': 4
+                                },
+                                'content': [
+                                    {
+                                        'component': 'VTextField',
+                                        'props': {
+                                            'model': 'storageplace',
+                                            'label': 'Strm存储地址',
+                                            'placeholder': '/downloads/strm'
+                                        }
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        'component': 'VRow',
+                        'content': [
+                            {
+                                'component': 'VCol',
+                                'props': {
+                                    'cols': 12,
+                                },
+                                'content': [
+                                    {
+                                        'component': 'VAlert',
+                                        'props': {
+                                            'type': 'info',
+                                            'variant': 'tonal',
+                                            'text': '自动从open ANi抓取下载直链生成strm文件，免去人工订阅下载' + '\n' +
+                                                    '配合目录监控使用，strm文件创建在/downloads/strm' + '\n' +
+                                                    '通过目录监控转移到link媒体库文件夹 如/downloads/link/strm  mp会完成刮削',
+                                            'style': 'white-space: pre-line;'
+                                        }
+                                    },
+                                    {
+                                        'component': 'VAlert',
+                                        'props': {
+                                            'type': 'info',
+                                            'variant': 'tonal',
+                                            'text': 'emby容器需要设置代理，docker的环境变量必须要有http_proxy代理变量，大小写敏感，具体见readme.' + '\n' +
+                                                    'https://github.com/honue/MoviePilot-Plugins',
+                                            'style': 'white-space: pre-line;'
+                                        }
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            }
+        ], {
+            "enabled": False,
+            "onlyonce": False,
+            "fulladd": False,
+            "download_all": False,  # 新增的配置项，默认为False
+            "storageplace": '/downloads/strm',
+            "cron": "*/20 22,23,0,1 * * *",
         }
-    ], {
-        "enabled": False,
-        "onlyonce": False,
-        "fulladd": False,
-        "download_all": False,  # 新增的配置项，默认为False
-        "storageplace": '/downloads/strm',
-        "cron": "*/20 22,23,0,1 * * *",
-    }
 
-def __update_config(self):
-    self.update_config({
-        "onlyonce": self._onlyonce,
-        "cron": self._cron,
-        "enabled": self._enabled,
-        "fulladd": self._fulladd,
-        "download_all": self._download_all,  # 更新下载所有季度的配置项
-        "storageplace": self._storageplace,
-    })
+    def __update_config(self):
+        self.update_config({
+            "onlyonce": self._onlyonce,
+            "cron": self._cron,
+            "enabled": self._enabled,
+            "fulladd": self._fulladd,
+            "download_all": self._download_all,  # 更新下载所有季度的配置项
+            "storageplace": self._storageplace,
+        })
 
-def get_page(self) -> List[dict]:
-    pass
+    def get_page(self) -> List[dict]:
+        pass
 
-def stop_service(self):
-    """
-    退出插件
-    """
-    try:
-        if self._scheduler:
-            self._scheduler.remove_all_jobs()
-            if self._scheduler.running:
-                self._scheduler.shutdown()
-            self._scheduler = None
-    except Exception as e:
-        logger.error("退出插件失败：%s" % str(e))
+    def stop_service(self):
+        """
+        退出插件
+        """
+        try:
+            if self._scheduler:
+                self._scheduler.remove_all_jobs()
+                if self._scheduler.running:
+                    self._scheduler.shutdown()
+                self._scheduler = None
+        except Exception as e:
+            logger.error("退出插件失败：%s" % str(e))
 
 
 if __name__ == "__main__":
