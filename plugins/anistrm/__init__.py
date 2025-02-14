@@ -58,7 +58,7 @@ class ANiStrm(_PluginBase):
     # 插件图标
     plugin_icon = "https://raw.githubusercontent.com/honue/MoviePilot-Plugins/main/icons/anistrm.png"
     # 插件版本
-    plugin_version = "2.4.2"
+    plugin_version = "9.9.9"
     # 插件作者
     plugin_author = "honue"
     # 作者主页
@@ -75,8 +75,8 @@ class ANiStrm(_PluginBase):
     # 任务执行间隔
     _cron = None
     _onlyonce = False
-    _fulladd = False
-    _download_all = False  # 新增属性，控制是否下载所有季度的动画
+    _fulladd = True
+    _download_all = True  # 新增属性，控制是否下载所有季度的动画
     _storageplace = None
 
     # 定时器
